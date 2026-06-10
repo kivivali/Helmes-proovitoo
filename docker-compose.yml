@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    container_name: helmes-db
+    environment:
+      POSTGRES_DB: helmes
+      POSTGRES_USER: helmes
+      POSTGRES_PASSWORD: helmes
+    ports:
+      - "5432:5432"
+    volumes:
+      - helmes-pgdata:/var/lib/postgresql/data
+
+volumes:
+  helmes-pgdata:
