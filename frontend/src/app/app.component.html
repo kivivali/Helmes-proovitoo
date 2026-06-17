@@ -1,0 +1,61 @@
+<main>
+  <h1>Sector Registration</h1>
+  <p>Please enter your name and pick the sectors you are currently involved in.</p>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" autocomplete="name" />
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+        <span class="error">Name is required.</span>
+      }
+      @if (serverErrors['name']) {
+        <span class="error">{{ serverErrors['name'] }}</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="sectors">Sectors</label>
+      <!--
+        [value]="s.id" binds the JS number, so the form value is number[].
+        [style.paddingLeft] derives indentation from depth — no &nbsp; characters.
+        CSS padding on <option> works in Firefox and macOS Chrome/Safari; on
+        Windows Chrome the OS renders the dropdown and ignores CSS (known limit).
+      -->
+      <select id="sectors" multiple size="12" formControlName="sectorIds">
+        @for (s of flatSectors; track s.id) {
+          <option [value]="s.id" [style.paddingLeft]="s.depth * 1.5 + 'rem'">{{ s.name }}</option>
+        }
+      </select>
+      <small>Hold Ctrl / Cmd to select multiple.</small>
+      @if (form.controls.sectorIds.invalid && form.controls.sectorIds.touched) {
+        <span class="error">Please select at least one sector.</span>
+      }
+      @if (serverErrors['sectorIds']) {
+        <span class="error">{{ serverErrors['sectorIds'] }}</span>
+      }
+    </div>
+
+    <div class="field field--inline">
+      <input id="agree" type="checkbox" formControlName="agreeToTerms" />
+      <label for="agree">Agree to terms</label>
+      @if (form.controls.agreeToTerms.invalid && form.controls.agreeToTerms.touched) {
+        <span class="error">You must agree to the terms.</span>
+      }
+      @if (serverErrors['agreeToTerms']) {
+        <span class="error">{{ serverErrors['agreeToTerms'] }}</span>
+      }
+    </div>
+
+    @if (saved) {
+      <p class="success">Your data has been saved.</p>
+    }
+    @if (saveError) {
+      <p class="error">{{ saveError }}</p>
+    }
+
+    <button type="submit">Save</button>
+
+  </form>
+</main>
