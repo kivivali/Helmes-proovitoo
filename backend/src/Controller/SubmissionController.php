@@ -54,15 +54,19 @@ class SubmissionController extends AbstractController
 
         $session = $request->getSession();
         $session->start();
-        $sessionId = $session->getId();
 
-        $submission = $submissions->findOneBySessionId($sessionId) ?? new Submission();
+        // Upsert: reuse the existing submission for this session if one exists.
+        $submissionId = $session->get('submissionId');
+        $submission = $submissionId ? $submissions->find($submissionId) : null;
+        if ($submission === null) {
+            $submission = new Submission();
+            $submission->setSessionId($session->getId());
+        }
+
         $submission->setName($data['name']);
         $submission->setAgreeToTerms($data['agreeToTerms']);
-        $submission->setSessionId($sessionId);
         $submission->setCreatedAt(new \DateTimeImmutable());
 
-        // Replace sectors: clear old, add new.
         foreach ($submission->getSectors() as $old) {
             $submission->removeSector($old);
         }
@@ -73,6 +77,11 @@ class SubmissionController extends AbstractController
         $em->persist($submission);
         $em->flush();
 
+        // Storing submissionId in the session serves two purposes:
+        // 1. makes the session non-empty so Symfony sends the Set-Cookie header;
+        // 2. lets GET /me do a PK lookup instead of a sessionId column scan.
+        $session->set('submissionId', $submission->getId());
+
         return $this->json($this->toArray($submission), Response::HTTP_CREATED);
     }
 
@@ -82,8 +91,12 @@ class SubmissionController extends AbstractController
         $session = $request->getSession();
         $session->start();
 
-        $submission = $submissions->findOneBySessionId($session->getId());
+        $submissionId = $session->get('submissionId');
+        if ($submissionId === null) {
+            return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+        }
 
+        $submission = $submissions->find($submissionId);
         if ($submission === null) {
             return new JsonResponse(null, Response::HTTP_NO_CONTENT);
         }
