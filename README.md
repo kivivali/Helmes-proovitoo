@@ -6,7 +6,7 @@ Sector-registration form: enter name → pick sectors → agree to terms → sav
 backend/     Symfony 7.4 + Doctrine — JSON API at :8000
 frontend/    Angular 19 — UI at :4200
 database/    pg_dump of schema + sectors
-docker-compose.yml   PostgreSQL 16
+backend/compose.yaml PostgreSQL 16
 ```
 
 ## Prerequisites
@@ -19,7 +19,8 @@ docker-compose.yml   PostgreSQL 16
 ## Run it (clean clone → working app)
 
 ```bash
-# 1. database
+# 1. database (pulls the postgres image automatically on first run)
+cd backend
 docker compose up -d
 
 # 2. backend (in a new terminal)
