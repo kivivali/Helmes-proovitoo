@@ -67,7 +67,7 @@ class SubmissionController extends AbstractController
         $submission->setAgreeToTerms($data['agreeToTerms']);
         $submission->setCreatedAt(new \DateTimeImmutable());
 
-        foreach ($submission->getSectors() as $old) {
+        foreach ($submission->getSectors()->toArray() as $old) {
             $submission->removeSector($old);
         }
         foreach ($resolvedSectors as $sector) {

@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict kXCuo3AMm0IOokfgJijD9uoLHrcNevvSJYyuHDIDccIeMUoHqXympndyYKzsuVD
+\restrict lV8t4nqPCwWkiwKrQ7szScat4EiCfrC5289maOBkiFmaqH3WFeHos3QLkMfsxIV
 
 -- Dumped from database version 16.14 (Debian 16.14-1.pgdg13+1)
 -- Dumped by pg_dump version 16.14 (Debian 16.14-1.pgdg13+1)
@@ -204,6 +204,12 @@ COPY public.sector (id, name, parent_id) FROM stdin;
 --
 
 COPY public.submission (id, name, agree_to_terms, session_id, created_at) FROM stdin;
+1	Jane Doe	t	32d7f0ad3a21a05a5c7812f33b9899a9	2026-06-17 17:30:13
+2	Test	t	b276929fbde0e2aaa7e2f6a715c87e79	2026-06-17 17:30:55
+3	Test	t	25ba6dfafa497ac215fbe7c7c9861da7	2026-06-17 17:31:19
+4	Jane Doe	t	4eaa40d670c72f921d5ba279d2b18bb5	2026-06-17 17:33:31
+5	Alice	t	140c9921f434f0e3583153c1e8a13703	2026-06-17 17:33:49
+6	Bob Updated	t	a3d6b0a3d2fbee917f2aaf30c372b805	2026-06-17 17:34:03
 \.
 
 
@@ -212,6 +218,16 @@ COPY public.submission (id, name, agree_to_terms, session_id, created_at) FROM s
 --
 
 COPY public.submission_sector (submission_id, sector_id) FROM stdin;
+1	81
+1	82
+2	81
+3	81
+4	81
+4	82
+5	81
+6	81
+6	82
+6	83
 \.
 
 
@@ -226,7 +242,7 @@ SELECT pg_catalog.setval('public.sector_id_seq', 158, true);
 -- Name: submission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: helmes
 --
 
-SELECT pg_catalog.setval('public.submission_id_seq', 1, false);
+SELECT pg_catalog.setval('public.submission_id_seq', 6, true);
 
 
 --
@@ -310,5 +326,5 @@ ALTER TABLE ONLY public.submission_sector
 -- PostgreSQL database dump complete
 --
 
-\unrestrict kXCuo3AMm0IOokfgJijD9uoLHrcNevvSJYyuHDIDccIeMUoHqXympndyYKzsuVD
+\unrestrict lV8t4nqPCwWkiwKrQ7szScat4EiCfrC5289maOBkiFmaqH3WFeHos3QLkMfsxIV
 

@@ -29,13 +29,13 @@ A trivial `findOneBy` wrapper. Named explicitly so call sites read like prose ("
 1. Decodes the JSON body into a plain array — no form type or DTO class needed for a single endpoint.
 2. `Assert\Collection` validates the array structure in one call, producing a list of `ConstraintViolation` objects. The loop converts them to a `{ field: message }` map and returns HTTP 422.
 3. `$sectors->findBy(['id' => $data['sectorIds']])` loads all requested sectors in a single `WHERE id IN (...)` query. Comparing the count against the unique input IDs catches any IDs that do not exist in the database.
-4. The session is explicitly started (`$session->start()`) before reading `getId()` to guarantee the ID is non-empty; Symfony starts the session lazily and `getId()` before `start()` returns an empty string.
-5. `findOneBySessionId()` returns an existing `Submission` if the session has one, otherwise `new Submission()`. The same setter calls apply in both branches — this is the upsert. One submission per session; re-saving overwrites the old data.
-6. Sectors are cleared by iterating `getSectors()` and calling `removeSector()` on each, then re-added. Doctrine tracks these changes and issues the correct `DELETE` + `INSERT` statements on flush.
+4. The session is explicitly started (`$session->start()`) before calling `$session->get()` to guarantee the session is initialized and has a stable ID. Symfony starts sessions lazily; calling `getId()` before `start()` returns an empty string.
+5. `$session->get('submissionId')` retrieves the submission PK stored by a prior save. If found, the existing row is loaded and updated (upsert); otherwise a new `Submission` is created. Symfony's `AbstractSessionListener` only sends `Set-Cookie` when the session is non-empty, so storing the submission ID in the session is load-bearing for the cookie flow — not just an optimization.
+6. Sectors are cleared by calling `->toArray()` to snapshot the collection before the loop, then calling `removeSector()` on each snapshot element. Modifying a Doctrine `ArrayCollection` during live iteration can skip elements; `toArray()` avoids that. Doctrine tracks the removals and issues the correct `DELETE` + `INSERT` on the join table when flushed.
 
 **`me()` (GET /api/submissions/me)**
 
-Starts the session, looks up the submission, returns 204 No Content if none exists. 204 is the standard "found but empty" HTTP code for a resource that has not been created yet; the client handles it without error.
+Starts the session, reads `submissionId` from it, and does a PK lookup. Returns 204 No Content if neither exists. 204 is the correct "resource not yet created" status; the Angular service maps it to `null` via `observe: 'response'` and `r.body`.
 
 **`toArray()`**
 
