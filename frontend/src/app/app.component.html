@@ -17,12 +17,6 @@
 
     <div class="field">
       <label for="sectors">Sectors</label>
-      <!--
-        [value]="s.id" binds the JS number, so the form value is number[].
-        [style.paddingLeft] derives indentation from depth — no &nbsp; characters.
-        CSS padding on <option> works in Firefox and macOS Chrome/Safari; on
-        Windows Chrome the OS renders the dropdown and ignores CSS (known limit).
-      -->
       <select id="sectors" multiple size="12" formControlName="sectorIds">
         @for (s of flatSectors; track s.id) {
           <option [value]="s.id" [style.paddingLeft]="s.depth * 1.5 + 'rem'">{{ s.name }}</option>
