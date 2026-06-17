@@ -14,7 +14,6 @@ export class SectorService {
     return this.http.get<Sector[]>(`${API}/sectors`, CREDS);
   }
 
-  // observe: 'response' lets us read r.body, which is null for 204 No Content.
   getSubmission(): Observable<Submission | null> {
     return this.http
       .get<Submission>(`${API}/submissions/me`, { ...CREDS, observe: 'response' })

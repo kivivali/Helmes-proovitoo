@@ -6,9 +6,6 @@ use App\Entity\Sector;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Sector>
- */
 class SectorRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -16,13 +13,6 @@ class SectorRepository extends ServiceEntityRepository
         parent::__construct($registry, Sector::class);
     }
 
-    /**
-     * Fetches every sector in one query, then builds the tree in PHP memory.
-     * Returns only root nodes; children are nested under 'children'.
-     * Returns plain arrays (not entities) to avoid serialization cycles.
-     *
-     * @return array<int, array{id: int, name: string, children: array}>
-     */
     public function findAsTree(): array
     {
         $rows = $this->createQueryBuilder('s')

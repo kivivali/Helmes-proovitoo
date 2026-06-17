@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict lV8t4nqPCwWkiwKrQ7szScat4EiCfrC5289maOBkiFmaqH3WFeHos3QLkMfsxIV
+\restrict 9N7scGs3YHefePiIgAplLHA6XpAxM4bGmhn3XNMmF5uJt9IXcAizBKn5mViadDh
 
 -- Dumped from database version 16.14 (Debian 16.14-1.pgdg13+1)
 -- Dumped by pg_dump version 16.14 (Debian 16.14-1.pgdg13+1)
@@ -117,85 +117,85 @@ DoctrineMigrations\\Version20260610201212	2026-06-10 20:12:51	31
 --
 
 COPY public.sector (id, name, parent_id) FROM stdin;
-80	Manufacturing	\N
-81	Construction materials	80
-82	Electronics and Optics	80
-83	Food and Beverage	80
-84	Bakery & confectionery products	83
-85	Beverages	83
-86	Fish & fish products	83
-87	Meat & meat products	83
-88	Milk & dairy products	83
-89	Other	83
-90	Sweets & snack food	83
-91	Furniture	80
-92	Bathroom/sauna	91
-93	Bedroom	91
-94	Children's room	91
-95	Kitchen	91
-96	Living room	91
-97	Office	91
-98	Other (Furniture)	91
-99	Outdoor	91
-100	Project furniture	91
-101	Machinery	80
-102	Machinery components	101
-103	Machinery equipment/tools	101
-104	Manufacture of machinery	101
-105	Maritime	101
-106	Aluminium and steel workboats	105
-107	Boat/Yacht building	105
-108	Ship repair and conversion	105
-109	Metal structures	101
-110	Other	101
-111	Repair and maintenance service	101
-112	Metalworking	80
-113	Construction of metal structures	112
-114	Houses and buildings	112
-115	Metal products	112
-116	Metal works	112
-117	CNC-machining	116
-118	Forgings, Fasteners	116
-119	Gas, Plasma, Laser cutting	116
-120	MIG, TIG, Aluminum welding	116
-121	Plastic and Rubber	80
-122	Packaging	121
-123	Plastic goods	121
-124	Plastic processing technology	121
-125	Blowing	124
-126	Moulding	124
-127	Plastics welding and processing	124
-128	Plastic profiles	121
-129	Printing	80
-130	Advertising	129
-131	Book/Periodicals printing	129
-132	Labelling and packaging printing	129
-133	Textile and Clothing	80
-134	Clothing	133
-135	Textile	133
-136	Wood	80
-137	Other (Wood)	136
-138	Wooden building materials	136
-139	Wooden houses	136
-140	Other	\N
-141	Creative industries	140
-142	Energy technology	140
-143	Environment	140
-144	Service	\N
-145	Business services	144
-146	Engineering	144
-147	Information Technology and Telecommunications	144
-148	Data processing, Web portals, E-marketing	147
-149	Programming, Consultancy	147
-150	Software, Hardware	147
-151	Telecommunications	147
-152	Tourism	144
-153	Translation services	144
-154	Transport and Logistics	144
-155	Air	154
-156	Rail	154
-157	Road	154
-158	Water	154
+159	Manufacturing	\N
+160	Construction materials	159
+161	Electronics and Optics	159
+162	Food and Beverage	159
+163	Bakery & confectionery products	162
+164	Beverages	162
+165	Fish & fish products	162
+166	Meat & meat products	162
+167	Milk & dairy products	162
+168	Other	162
+169	Sweets & snack food	162
+170	Furniture	159
+171	Bathroom/sauna	170
+172	Bedroom	170
+173	Children's room	170
+174	Kitchen	170
+175	Living room	170
+176	Office	170
+177	Other (Furniture)	170
+178	Outdoor	170
+179	Project furniture	170
+180	Machinery	159
+181	Machinery components	180
+182	Machinery equipment/tools	180
+183	Manufacture of machinery	180
+184	Maritime	180
+185	Aluminium and steel workboats	184
+186	Boat/Yacht building	184
+187	Ship repair and conversion	184
+188	Metal structures	180
+189	Other	180
+190	Repair and maintenance service	180
+191	Metalworking	159
+192	Construction of metal structures	191
+193	Houses and buildings	191
+194	Metal products	191
+195	Metal works	191
+196	CNC-machining	195
+197	Forgings, Fasteners	195
+198	Gas, Plasma, Laser cutting	195
+199	MIG, TIG, Aluminum welding	195
+200	Plastic and Rubber	159
+201	Packaging	200
+202	Plastic goods	200
+203	Plastic processing technology	200
+204	Blowing	203
+205	Moulding	203
+206	Plastics welding and processing	203
+207	Plastic profiles	200
+208	Printing	159
+209	Advertising	208
+210	Book/Periodicals printing	208
+211	Labelling and packaging printing	208
+212	Textile and Clothing	159
+213	Clothing	212
+214	Textile	212
+215	Wood	159
+216	Other (Wood)	215
+217	Wooden building materials	215
+218	Wooden houses	215
+219	Other	\N
+220	Creative industries	219
+221	Energy technology	219
+222	Environment	219
+223	Service	\N
+224	Business services	223
+225	Engineering	223
+226	Information Technology and Telecommunications	223
+227	Data processing, Web portals, E-marketing	226
+228	Programming, Consultancy	226
+229	Software, Hardware	226
+230	Telecommunications	226
+231	Tourism	223
+232	Translation services	223
+233	Transport and Logistics	223
+234	Air	233
+235	Rail	233
+236	Road	233
+237	Water	233
 \.
 
 
@@ -204,12 +204,6 @@ COPY public.sector (id, name, parent_id) FROM stdin;
 --
 
 COPY public.submission (id, name, agree_to_terms, session_id, created_at) FROM stdin;
-1	Jane Doe	t	32d7f0ad3a21a05a5c7812f33b9899a9	2026-06-17 17:30:13
-2	Test	t	b276929fbde0e2aaa7e2f6a715c87e79	2026-06-17 17:30:55
-3	Test	t	25ba6dfafa497ac215fbe7c7c9861da7	2026-06-17 17:31:19
-4	Jane Doe	t	4eaa40d670c72f921d5ba279d2b18bb5	2026-06-17 17:33:31
-5	Alice	t	140c9921f434f0e3583153c1e8a13703	2026-06-17 17:33:49
-6	Bob Updated	t	a3d6b0a3d2fbee917f2aaf30c372b805	2026-06-17 17:34:03
 \.
 
 
@@ -218,16 +212,6 @@ COPY public.submission (id, name, agree_to_terms, session_id, created_at) FROM s
 --
 
 COPY public.submission_sector (submission_id, sector_id) FROM stdin;
-1	81
-1	82
-2	81
-3	81
-4	81
-4	82
-5	81
-6	81
-6	82
-6	83
 \.
 
 
@@ -235,14 +219,14 @@ COPY public.submission_sector (submission_id, sector_id) FROM stdin;
 -- Name: sector_id_seq; Type: SEQUENCE SET; Schema: public; Owner: helmes
 --
 
-SELECT pg_catalog.setval('public.sector_id_seq', 158, true);
+SELECT pg_catalog.setval('public.sector_id_seq', 237, true);
 
 
 --
 -- Name: submission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: helmes
 --
 
-SELECT pg_catalog.setval('public.submission_id_seq', 6, true);
+SELECT pg_catalog.setval('public.submission_id_seq', 1, false);
 
 
 --
@@ -326,5 +310,5 @@ ALTER TABLE ONLY public.submission_sector
 -- PostgreSQL database dump complete
 --
 
-\unrestrict lV8t4nqPCwWkiwKrQ7szScat4EiCfrC5289maOBkiFmaqH3WFeHos3QLkMfsxIV
+\unrestrict 9N7scGs3YHefePiIgAplLHA6XpAxM4bGmhn3XNMmF5uJt9IXcAizBKn5mViadDh
 

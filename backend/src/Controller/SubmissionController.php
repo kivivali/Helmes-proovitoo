@@ -27,7 +27,10 @@ class SubmissionController extends AbstractController
         $data = json_decode($request->getContent(), true) ?? [];
 
         $errors = $validator->validate($data, new Assert\Collection([
-            'name' => new Assert\NotBlank(message: 'Name is required.'),
+            'name' => [
+                new Assert\NotBlank(message: 'Name is required.', normalizer: 'trim'),
+                new Assert\Length(max: 255, maxMessage: 'Name is too long (max 255 characters).'),
+            ],
             'sectorIds' => [
                 new Assert\NotNull(),
                 new Assert\Count(min: 1, minMessage: 'Please select at least one sector.'),
@@ -55,7 +58,6 @@ class SubmissionController extends AbstractController
         $session = $request->getSession();
         $session->start();
 
-        // Upsert: reuse the existing submission for this session if one exists.
         $submissionId = $session->get('submissionId');
         $submission = $submissionId ? $submissions->find($submissionId) : null;
         if ($submission === null) {
@@ -77,9 +79,6 @@ class SubmissionController extends AbstractController
         $em->persist($submission);
         $em->flush();
 
-        // Storing submissionId in the session serves two purposes:
-        // 1. makes the session non-empty so Symfony sends the Set-Cookie header;
-        // 2. lets GET /me do a PK lookup instead of a sessionId column scan.
         $session->set('submissionId', $submission->getId());
 
         return $this->json($this->toArray($submission), Response::HTTP_CREATED);
@@ -104,7 +103,6 @@ class SubmissionController extends AbstractController
         return $this->json($this->toArray($submission));
     }
 
-    /** @return array{name: string, sectorIds: int[], agreeToTerms: bool} */
     private function toArray(Submission $submission): array
     {
         return [
